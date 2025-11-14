@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Login Page
+{% endblock %}
+
+{% block own_css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+{% endblock %}
+
+{% block content %}
+    <h1>New Login.html</h1>
+{% endblock %}
+
+{% block own_js %}
+    <script src="{{ url_for('static', filename='js/login.js') }}"></script>
+{% endblock %}
