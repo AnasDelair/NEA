@@ -1,17 +1,27 @@
 {% extends "base.html" %}
 
 {% block title %}
-    Login Page
+Login Page
 {% endblock %}
 
 {% block own_css %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
 {% endblock %}
 
 {% block content %}
-    <h1>New Login.html</h1>
+<div id="login-container">
+    <h1>
+        Login
+    </h1>
+    <form action = "/passing" method = "POST">  
+        <p>Name <input type = "text" name = "name" /></p>  
+        <p>Email <input type = "email" name = "email" /></p>  
+        <p>Phone Num <input type = "text" name = "phone" /></p>  
+        <p><input type = "submit" value = "Submit" /></p>  
+    </form>
+</div>
 {% endblock %}
 
 {% block own_js %}
-    <script src="{{ url_for('static', filename='js/login.js') }}"></script>
+<script src="{{ url_for('static', filename='js/login.js') }}"></script>
 {% endblock %}
