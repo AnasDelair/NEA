@@ -24,24 +24,55 @@ body {
     font-family: "Recursive", sans-serif;
 }
 
+::selection {
+    background: var(--highlight);
+    color: var(--text);
+    text-shadow: none;
+}
+
+::-moz-selection {
+    background: var(--highlight);
+    color: var(--text);
+    text-shadow: none;
+}
+
 input {
+    outline: none !important;
     background-color: var(--primary);
+    border: 1px solid var(--secondary);
     color: var(--highlight);
     text-align: center;
 }
 
+input:hover {
+    background-color: var(--secondary);
+    border-color: var(--primary);
+    color: var(--text);
+}
+
 input::placeholder {
     color: var(--highlight);
+    opacity: 0.5;
+}
+
+input:hover::placeholder {
+    color: var(--text);
 }
 
 input:focus::placeholder {
-    opacity: 0.5;
+    color: var(--text);
+}
+
+input:focus {
+    background-color: var(--secondary);
+    border: 1px solid var(--primary);
+    color: var(--text);
 }
 
 input[type="submit"] {
     background-color: var(--primary);
+    border: 1px solid var(--secondary);
     color: var(--highlight);
-    border: none;
     padding: 8px 14px;
     cursor: pointer;
     text-align: center;
@@ -49,4 +80,11 @@ input[type="submit"] {
 
 input[type="submit"]:hover {
     background-color: var(--secondary) !important;
+    border-color: var(--primary) !important;
+}
+
+input[type="submit"]:hover {
+    background-color: var(--secondary);
+    border-color: var(--primary);
+    color: var(--text);
 }

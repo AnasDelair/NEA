@@ -5,6 +5,7 @@ def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
         if not session.get("logged_in"):
+            print("not logged in")
             return redirect(url_for("auth.login"))
         return f(*args, **kwargs)
     return decorated_function
