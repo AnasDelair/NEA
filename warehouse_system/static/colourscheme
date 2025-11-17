@@ -1,0 +1,20 @@
+1
+Background	#f3eee7 (soft cream)
+Surface	#d8cfc4 (mocha stone)
+Primary accent	#1b6f8c (ink cyan)
+Secondary accent	#40a8c4 (bright ice cyan)
+Text	#2b2b2b (rich charcoal)
+
+2
+Background	#f4f2ec (warm light beige)
+Surface	#d6d2c4 (moss stone)
+Primary accent	#6b8e4e (natural green)
+Secondary accent	#a1b57d (sage light)
+Highlight	#e8c7a1 (soft apricot)
+Text	#2d2d2d (soft black)
+
+Background: body
+Surface: cards, panels, forms
+Primary: buttons, links, icons, Important highlights
+Secondary: Secondary buttons, Hover states, Borders, Underlines, Small highlights, Background decorations, Charts / infographics
+Highlight: Alerts, Warnings, Notification badges, Important text, Special callouts
