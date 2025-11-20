@@ -1,3 +1,54 @@
 h1 {
     color: brown;
 }
+
+header {
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    width: 100vw;
+    background-color: #000;
+}
+
+header nav {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+nav ul {
+    display: flex;
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+    justify-content: space-between;
+}
+
+nav li {
+    flex: 1; 
+    text-align: center;
+    border: none;
+    margin: 0;
+}
+
+nav li a {
+    display: block; 
+    margin: 0;
+    padding: 20px;
+    border: none;
+    border-radius: 0;
+    color: #000; 
+}
+
+ul > li + li {
+    border-left: 1px solid #bbb;
+}
+
+nav li a:hover {
+    background-color: #ddd; 
+}
+
+#selected a {
+    background-color: #bbb; 
+    font-weight: bold; 
+}

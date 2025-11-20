@@ -1,17 +1,29 @@
 {% extends "base.html" %}
 
 {% block title %}
-    Home Page
+Dashboard
 {% endblock %}
 
 {% block own_css %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
 {% endblock %}
 
 {% block content %}
-    <h1>New Home.html</h1>
+<header>
+    <nav>
+        <ul>
+            <li id="selected"><a href="">Analytics</a></li>
+            <li><a href="">Orders</a></li>
+            <li><a href="">Inventory</a></li>
+            <li><a href="">Warehouse</a></li>
+        </ul>
+    </nav>
+</header>
+<h1>New Home.html</h1>
 {% endblock %}
 
 {% block own_js %}
-    <script src="{{ url_for('static', filename='js/home.js') }}"></script>
+<script src="{{ url_for('static', filename='js/home.js') }}"></script>
 {% endblock %}
+
+<!-- Analytics | Orders | Inventory | Warehouse -->
