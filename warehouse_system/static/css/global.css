@@ -16,6 +16,8 @@
   --secondary: #a1b57d;
   --highlight: #e8c7a1;
   --text: #2d2d2d;
+
+  --tab-height: 8vh;
 }
 
 body {
