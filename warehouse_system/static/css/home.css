@@ -1,14 +1,9 @@
-h1 {
-    color: brown;
-}
-
 header {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: var(--tab-height);
-    background-color: #000;
     z-index: 1000;
 }
 
@@ -25,8 +20,6 @@ nav ul {
     margin: 0;
     width: 100%;
     height: 100%;
-    list-style-type: none;
-    justify-content: space-between;
 }
 
 nav li {
@@ -46,29 +39,44 @@ nav li a {
     padding: 0;
     border: 0;
     border-radius: 0;
-    color: #000; 
+
+    background-color: var(--secondary);
 }
 
-ul > li + li {
-    border-left: 1px solid #bbb;
+header nav a, header nav a:visited {
+    color: var(--text);
 }
 
 nav li a:hover {
-    background-color: #ddd; 
+    background-color: var(--primary);
+    border-color: var(--primary);
+    color: var(--highlight);
 }
 
 #selected a {
-    background-color: #bbb; 
-    font-weight: bold; 
+    background-color: var(--primary); 
+    color: var(--highlight);
+    font-weight: bold;
+}
+
+ul:has(.unselected:hover) #selected a {
+    background-color: var(--secondary);
+    color: var(--text);
+}
+
+ul > li + li {
+    border-left: 1px solid var(--highlight);
 }
 
 main {
+    position: absolute;
+    left: 0;
     padding-top: 0;
+    width: 100vw;
 }
 
 .main-content {
-    background-color: #000;
+    background-color: var(--bg);
     margin-top: var(--tab-height);
     height: calc(100vh - var(--tab-height));
-    width: 100vw;
 }
