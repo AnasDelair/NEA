@@ -3,7 +3,7 @@ from flask import Blueprint, render_template, request, redirect, url_for, sessio
 auth_blueprint = Blueprint("auth", __name__, template_folder="/workspaces/NEA/warehouse_system/templates")
 
 @auth_blueprint.route("/login", methods=["GET", "POST"])
-def login():
+def index():
     if request.method == "GET":
         if session.get("logged_in"):
             return redirect(url_for("homepage"))

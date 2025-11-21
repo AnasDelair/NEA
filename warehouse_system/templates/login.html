@@ -10,14 +10,14 @@ Login Page
 
 {% block content %}
 <div id="login-container">
-    <h1>
-        Admin
-    </h1>
-    <form method = "POST" id="login-form">  
-        <input type = "password" name = "password" placeholder="password" />
-        <p><input type = "submit" value = "login" /></p>
-    </form>
-    <p id="login-message" style="color:red;"></p>
+    <div class="login-inner">
+        <h1>Admin</h1>
+        <form method="POST" id="login-form">  
+            <input type="password" name="password" placeholder="password" />
+            <p><input type="submit" value="login" /></p>
+        </form>
+        <p id="login-message">Enter details.</p>
+    </div>
 </div>
 {% endblock %}
 

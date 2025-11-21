@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block own_css %}
+{{ super() }}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard-base.css') }}">
+{% endblock %}
+
+{% block content %}
+<header>
+    <nav>
+        <ul>
+            <li class="{% if active_tab == 'analytics' %}selected{% else %}unselected{% endif %}">
+                <a href="/analytics">Analytics</a>
+            </li>
+            <li class="{% if active_tab == 'invoices' %}selected{% else %}unselected{% endif %}">
+                <a href="/invoices">Invoices</a>
+            </li>
+            <li class="{% if active_tab == 'inventory' %}selected{% else %}unselected{% endif %}">
+                <a href="/inventory">Inventory</a>
+            </li>
+            <li class="{% if active_tab == 'warehouse' %}selected{% else %}unselected{% endif %}">
+                <a href="/warehouse">Warehouse</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+<div class="main-content">
+    {% block dashboard_content %}
+    {% endblock %}
+</div>
+{% endblock %}
+
+{% block own_js %}
+{{ super() }}
+
+<script src="{{ url_for('static', filename='js/dashboard-base.js') }}"></script>
+{% endblock %}

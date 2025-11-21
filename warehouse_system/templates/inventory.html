@@ -1,0 +1,21 @@
+{% extends "dashboard-base.html" %}
+
+{% block title %}
+Inventory
+{% endblock %}
+
+{% block own_css %}
+{{ super() }}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/inventory.css') }}">
+{% endblock %}
+
+{% block dashboard_content %}
+<h1>Inventory</h1>
+{% endblock %}
+
+{% block own_js %}
+{{ super() }}
+
+<script src="{{ url_for('static', filename='js/inventory.js') }}"></script>
+{% endblock %}

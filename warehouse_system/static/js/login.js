@@ -1,9 +1,17 @@
 const loginMessage = document.getElementById("login-message")
+const originalMessage = loginMessage.innerText
+
+const colours = {
+    error : "#8e4e4eff",
+    success : "#6b8e4e",
+    normal : "#2d2d2d"
+}
+
+const setColour = (colour) => loginMessage.style.color = colour;
+const setText = (msg) => loginMessage.innerText = msg;
 
 document.getElementById("login-form").addEventListener("submit", async function (e) {
     e.preventDefault();
-
-    console.log(this)
 
     const password = this.password.value;
 
@@ -17,17 +25,18 @@ document.getElementById("login-form").addEventListener("submit", async function 
 
     const data = await response.json();
 
-    loginMessage.style.color = "#8e4e4eff"
+    setColour(colours.error)
     if (data.success) {
-        loginMessage.style.color = "#6b8e4e"
+        setColour(colours.success)
         setTimeout(() => { 
             window.location.href = "/";
         }, 1000);
     }
 
-    loginMessage.innerText = data.message;
+    setText(data.message)
 
     setTimeout(() => {
-        loginMessage.innerText = ""
+        setColour(colours.normal)
+        setText(originalMessage)
     }, 2000)
 });
