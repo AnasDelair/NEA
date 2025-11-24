@@ -1,9 +1,9 @@
 from flask import Flask, render_template, redirect, url_for, session
-from auth.routes import auth_blueprint
-from analytics.routes import analytics_blueprint
-from invoices.routes import invoices_blueprint
-from inventory.routes import inventory_blueprint
-from warehouse.routes import warehouse_blueprint
+from sitemap.auth.routes import auth_blueprint
+from sitemap.analytics.routes import analytics_blueprint
+from sitemap.invoices.routes import invoices_blueprint
+from sitemap.inventory.routes import inventory_blueprint
+from sitemap.warehouse.routes import warehouse_blueprint
 from utils.decorators import login_required
 
 app = Flask(__name__, template_folder="/workspaces/NEA/warehouse_system/templates", static_folder='/workspaces/NEA/warehouse_system/static')
