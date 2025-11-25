@@ -5,9 +5,15 @@ from sitemap.invoices.routes import invoices_blueprint
 from sitemap.inventory.routes import inventory_blueprint
 from sitemap.warehouse.routes import warehouse_blueprint
 from utils.decorators import login_required
+from dotenv import load_dotenv
+from os import environ as env
+from modules.database import Database
+
+load_dotenv()
+db = Database()
 
 app = Flask(__name__, template_folder="/workspaces/NEA/warehouse_system/templates", static_folder='/workspaces/NEA/warehouse_system/static')
-app.secret_key = "temp_secure_key"
+app.secret_key = env.get("APP_SECRET_KEY")
 
 app.register_blueprint(auth_blueprint)
 app.register_blueprint(analytics_blueprint)
