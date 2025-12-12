@@ -10,7 +10,6 @@ from os import environ as env
 from modules.database import Database
 
 load_dotenv()
-db = Database()
 
 app = Flask(__name__, template_folder="/workspaces/NEA/warehouse_system/templates", static_folder='/workspaces/NEA/warehouse_system/static')
 app.secret_key = env.get("APP_SECRET_KEY")

@@ -1,36 +1,24 @@
-from mysql.connector import pooling as pool
-from mysql.connector import connect
-from dotenv import load_dotenv
-from os import environ as env
+import pymysql
 
-load_dotenv()
-
-class Database:
-    def __init__(self):
-        #self.pool = pool.MySQLConnectionPool(
-        #    pool_name="database",
-        #    pool_size=5,
-        #    pool_reset_session=True,
-        #    host=env.get("DATABASE_HOST"),
-        #    user=env.get("DATABASE_USER"),
-        #    password=env.get("DATABASE_PASS"),
-        #    database=env.get("DATABASE")
-        #)
-        
-        # print(self.pool.get_connection())
-
-        context = connect(
-            user="u381396247_adelair", 
-            password="I&ac@aCp&0", 
-            host="srv1475.hstgr.io", 
-            port="3306", 
-            database="u381396247_adelair"
-            )
-        
-        print("connected")
-        
-        context.close()
-
-if __name__ == "__main__":
-    print("running")
-    db = Database()
+timeout = 10
+connection = pymysql.connect(
+  charset="utf8mb4",
+  connect_timeout=timeout,
+  cursorclass=pymysql.cursors.DictCursor,
+  db="defaultdb",
+  host="mysql-fbb4b6a-heckgrammar-bca2.i.aivencloud.com",
+  password="AVNS_3K1SgLzxo8FcpkUD0I2",
+  read_timeout=timeout,
+  port=26619,
+  user="avnadmin",
+  write_timeout=timeout,
+)
+  
+try:
+  cursor = connection.cursor()
+  cursor.execute('''SELECT TABLE_NAME 
+FROM INFORMATION_SCHEMA.TABLES
+WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_SCHEMA='defaultdb' ''')
+  print(cursor.fetchall())
+finally:
+  connection.close()
