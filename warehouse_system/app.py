@@ -7,7 +7,7 @@ from sitemap.warehouse.routes import warehouse_blueprint
 from utils.decorators import login_required
 from dotenv import load_dotenv
 from os import environ as env
-from modules.database import Database
+# from modules.database import Database
 
 load_dotenv()
 

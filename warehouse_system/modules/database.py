@@ -1,24 +1,29 @@
-import pymysql
+from pymysqlpool.pool import Pool
+from dotenv import load_dotenv
+from os import environ as env
 
-timeout = 10
-connection = pymysql.connect(
-  charset="utf8mb4",
-  connect_timeout=timeout,
-  cursorclass=pymysql.cursors.DictCursor,
-  db="defaultdb",
-  host="mysql-fbb4b6a-heckgrammar-bca2.i.aivencloud.com",
-  password="AVNS_3K1SgLzxo8FcpkUD0I2",
-  read_timeout=timeout,
-  port=26619,
-  user="avnadmin",
-  write_timeout=timeout,
-)
-  
-try:
-  cursor = connection.cursor()
-  cursor.execute('''SELECT TABLE_NAME 
-FROM INFORMATION_SCHEMA.TABLES
-WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_SCHEMA='defaultdb' ''')
-  print(cursor.fetchall())
-finally:
-  connection.close()
+load_dotenv()
+
+class Database:
+    def __init__(self):
+        self.pool = Pool(
+            host=env["DATABASE_HOST"],
+            user=env["DATABASE_USER"],
+            password=env["DATABASE_PASS"],
+            db=env["DATABASE"]
+        )
+        self.pool.init()
+        
+    def query(self, query: string)
+
+    def release(self, conn):
+        self.pool.release(conn)
+
+    def close(self):
+        self.pool.destroy()
+        
+    def _get_conn(self):
+        return self.pool.get_conn()
+
+
+db = Database()
