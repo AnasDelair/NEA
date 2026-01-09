@@ -14,7 +14,14 @@ class Database:
         )
         self.pool.init()
         
-    def query(self, query: string)
+    def execute(self, query: str, params=None):
+        conn = self.get_connection()
+        try:
+            with conn.cursor() as cursor:
+                cursor.execute(query, params)
+                return cursor.fetchall()
+        finally:
+            self.release(conn)
 
     def release(self, conn):
         self.pool.release(conn)
@@ -22,8 +29,5 @@ class Database:
     def close(self):
         self.pool.destroy()
         
-    def _get_conn(self):
+    def get_connection(self):
         return self.pool.get_conn()
-
-
-db = Database()
