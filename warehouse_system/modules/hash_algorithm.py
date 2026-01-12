@@ -1,3 +1,6 @@
+import os
+
+
 def hash_string(string: str, salt, rounds=1000):
     hash_value = salt
 
@@ -12,7 +15,8 @@ def hash_string(string: str, salt, rounds=1000):
 class Hash:
     @staticmethod
     def hash_password(password: str):
-        salt = len(password) * 12345
+        salt = os.urandom(16)
+        print(salt)
         hashed = hash_string(password, salt)
         return salt, hashed
 
