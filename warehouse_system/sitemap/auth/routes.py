@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for, session, jsonify
+from modules.services import Services
 
 auth_blueprint = Blueprint("auth", __name__, template_folder="/workspaces/NEA/warehouse_system/templates")
 
@@ -12,8 +13,10 @@ def index():
 
     data = request.get_json()
     password_input = data.get("password")
+    
+    success = Services.auth.authenticate(password_input)
 
-    if password_input == "admin":
+    if success:
         session["logged_in"] = True
         return jsonify({"success": True, "message": "Login successful!"})
     else:

@@ -1,5 +1,5 @@
-from database import Database
-from authenticator import AuthService
+from modules.database import Database
+from modules.authenticator import AuthService
 
 class Services:
     def __init__(self):
@@ -9,3 +9,5 @@ class Services:
 
     def close(self):
         self.db.close()
+        
+Services = Services()

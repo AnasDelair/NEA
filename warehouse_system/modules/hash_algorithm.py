@@ -1,5 +1,6 @@
-import os
+import random
 
+rng = random.SystemRandom()
 
 def hash_string(string: str, salt, rounds=1000):
     hash_value = salt
@@ -15,17 +16,18 @@ def hash_string(string: str, salt, rounds=1000):
 class Hash:
     @staticmethod
     def hash_password(password: str):
-        salt = os.urandom(16)
-        print(salt)
+        salt = rng.randint(0, 0xFFFFFFFF) # generate a random 32-bit salt
         hashed = hash_string(password, salt)
         return salt, hashed
 
     @staticmethod
     def verify_password(input_password: str, stored_salt, stored_hash):
-        _, hashed = hash_string(input_password, stored_salt)
+        hashed = hash_string(input_password, stored_salt)
         return hashed == stored_hash
 
 if __name__ == "__main__":
     password = "admin"
     salt, hashed = Hash.hash_password(password)
     print(f"Salt: {salt}, Hashed: {hashed}")
+    success = Hash.verify_password("admin", salt, hashed)
+    print(f"Password verification success: {success}")
