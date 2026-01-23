@@ -11,7 +11,88 @@ invoices
 {% endblock %}
 
 {% block dashboard_content %}
-<h1>invoices</h1>
+<div class="invoices-layout">
+
+    <!-- Sidebar -->
+    <aside class="invoice-tabs">
+        <button class="tab active" data-tab="all">All invoices</button>
+        <button class="tab" data-tab="drafts">Drafts</button>
+        <button class="tab" data-tab="open">Open</button>
+        <button class="tab" data-tab="past-due">Past due</button>
+        <button class="tab" data-tab="paid">Paid</button>
+        <button class="tab" data-tab="customers">Customers</button>
+    </aside>
+
+    <!-- Main content -->
+    <section class="invoice-content">
+
+        <div class="invoice-toolbar">
+            <input type="text" placeholder="Search invoices or customers…">
+            <div class="toolbar-actions">
+                <button class="secondary-action" disabled>Mark as paid</button>
+                <button class="secondary-action" disabled>Delete</button>
+                <a href="/invoices/create" class="primary-action">Create invoice</a>
+            </div>
+        </div>
+
+        <div class="table-wrapper">
+
+            <!-- Invoices table -->
+            <table class="invoice-table" data-table="invoices">
+                <thead>
+                    <tr>
+                        <th><input type="checkbox" id="select-all"></th>
+                        <th>Invoice #</th>
+                        <th>Customer</th>
+                        <th>Status</th>
+                        <th>Amount</th>
+                        <th>Due date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- placeholder rows -->
+                    <tr class="clickable">
+                        <td><input type="checkbox"></td>
+                        <td>#INV-001</td>
+                        <td>Acme Ltd</td>
+                        <td>Open</td>
+                        <td>£120.00</td>
+                        <td>12 Feb 2026</td>
+                    </tr>
+                    <tr class="clickable">
+                        <td><input type="checkbox"></td>
+                        <td>#INV-002</td>
+                        <td>Beta Corp</td>
+                        <td>Paid</td>
+                        <td>£89.99</td>
+                        <td>01 Jan 2026</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Customers table -->
+            <table class="invoice-table hidden" data-table="customers">
+                <thead>
+                    <tr>
+                        <th>Customer</th>
+                        <th>Email</th>
+                        <th>Total invoices</th>
+                        <th>Outstanding</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="clickable">
+                        <td>Acme Ltd</td>
+                        <td>accounts@acme.co.uk</td>
+                        <td>12</td>
+                        <td>£240.00</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </section>
+</div>
 {% endblock %}
 
 {% block own_js %}

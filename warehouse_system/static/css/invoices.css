@@ -1,0 +1,141 @@
+.invoices-layout {
+    display: flex;
+    height: 100%;
+}
+
+.invoice-tabs {
+    width: 15rem;
+
+    background-color: var(--surface);
+    border-right: 1px solid var(--secondary);
+
+    display: flex;
+    flex-direction: column;
+
+    /* positioning fixes */
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+
+    margin-left: 0;
+}
+
+.invoice-tabs .tab {
+    width: 100%;
+    padding: 1rem 1.25rem;
+
+    background: none;
+    border: none;
+    border-bottom: 1px solid var(--secondary);
+
+    text-align: left;
+    cursor: pointer;
+    font-family: inherit;
+    color: var(--text);
+}
+
+.invoice-tabs .tab:hover {
+    background-color: var(--secondary);
+}
+
+.invoice-tabs .tab.active {
+    background-color: var(--primary);
+    color: var(--highlight);
+    font-weight: bold;
+}
+
+/* Main content */
+.invoice-content {
+    flex: 1;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Toolbar */
+.invoice-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    gap: 1rem;
+}
+
+.invoice-toolbar input {
+    width: 280px;
+}
+
+.toolbar-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.primary-action {
+    background-color: var(--primary);
+    color: var(--highlight);
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    border: 1px solid var(--secondary);
+}
+
+.primary-action:hover {
+    background-color: var(--secondary);
+    color: var(--text);
+}
+
+.secondary-action {
+    background-color: var(--surface);
+    border: 1px solid var(--secondary);
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+}
+
+.secondary-action:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Table */
+.table-wrapper {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.invoice-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.invoice-table th,
+.invoice-table td {
+    padding: 0.75rem;
+    border-bottom: 1px solid var(--secondary);
+    text-align: left;
+}
+
+.invoice-table thead {
+    background-color: var(--surface);
+    position: sticky;
+    top: 0;
+}
+
+.invoice-table tr.clickable:hover {
+    background-color: var(--highlight);
+    cursor: pointer;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .invoice-tabs {
+        width: 160px;
+    }
+
+    .invoice-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
