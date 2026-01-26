@@ -8,12 +8,13 @@
 
     background-color: var(--surface);
     border-right: 1px solid var(--secondary);
+    border-radius: 0;
 
     display: flex;
     flex-direction: column;
 
     /* positioning fixes */
-    margin-top: 1.5rem;
+    margin-top: 3rem;
     padding-top: 1rem;
     padding-bottom: 1rem;
 
