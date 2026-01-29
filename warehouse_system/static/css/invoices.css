@@ -6,42 +6,46 @@
 .invoice-tabs {
     width: 15rem;
 
-    background-color: var(--surface);
-    border-right: 1px solid var(--secondary);
+    background-color: transparent;
+    border-right: none;
     border-radius: 0;
 
     display: flex;
     flex-direction: column;
 
-    /* positioning fixes */
     margin-top: 3rem;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-
+    padding: 1.5rem 0 0 0;
     margin-left: 0;
+    margin-bottom: 0;
 }
 
 .invoice-tabs .tab {
     width: 100%;
+    height: 100%;
     padding: 1rem 1.25rem;
 
-    background: none;
-    border: none;
-    border-bottom: 1px solid var(--secondary);
+    background-color: var(--surface);
 
-    text-align: left;
+    border: 1px solid var(--secondary);
+    border-radius: 0;
+    margin: 0;
+
+    text-align: center;
     cursor: pointer;
     font-family: inherit;
     color: var(--text);
 }
 
 .invoice-tabs .tab:hover {
+    border: 1px solid var(--highlight);
     background-color: var(--secondary);
 }
 
 .invoice-tabs .tab.active {
     background-color: var(--primary);
+    box-shadow: inset 0.5rem 0 0 0 var(--secondary);
     color: var(--highlight);
+    border: 1px solid var(--highlight);
     font-weight: bold;
 }
 
@@ -57,18 +61,17 @@
 .invoice-toolbar {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
-    gap: 1rem;
+    align-items: flex-start;
 }
 
-.invoice-toolbar input {
+.invoice-toolbar input[type="text"] {
     width: 280px;
 }
 
 .toolbar-actions {
     display: flex;
     gap: 0.5rem;
+    align-items: flex-start;
 }
 
 .primary-action {
