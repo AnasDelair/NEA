@@ -8,6 +8,8 @@ from pathlib import Path
 from urllib.parse import urlparse, parse_qs
 from warehouse_system.modules.database import Database
 
+# MAKE CAPACITY REMOVE ML ON JSON
+
 def extract_image_key(image_url):
     if not image_url:
         return None
