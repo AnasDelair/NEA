@@ -39,6 +39,7 @@
 .invoice-tabs .tab:hover {
     border: 1px solid var(--highlight);
     background-color: var(--secondary);
+    box-shadow: inset 0.5rem 0 0 0 var(--primary);
 }
 
 .invoice-tabs .tab.active {
