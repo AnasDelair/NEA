@@ -25,6 +25,29 @@ def extract_external_product_id(url):
 with open("warehouse_system/storage/products.json", "r", encoding="utf-8") as f:
     products = json.load(f)
 
+def normalise_capacity(capacity):
+    """
+    "230 ml" -> 230
+    "0 ml"   -> 0
+    None     -> None
+    """
+    if not capacity:
+        return None
+    return int(capacity.replace("ml", "").strip())
+
+
+def normalise_dimensions(dimensions):
+    """
+    "182 * 8"           -> "182x8"
+    "243 * 115 * 70"    -> "243x115x70"
+    None                -> None
+    """
+    if not dimensions:
+        return None
+
+    parts = [p.strip() for p in dimensions.split("*")]
+    return "x".join(parts)
+
 
 db = Database()
 
@@ -67,14 +90,15 @@ try:
                     p.get("product_code"),
                     p.get("stock_code"),
                     p.get("description"),
-                    p.get("dimensions"),
-                    p.get("capacity"),
+                    normalise_dimensions(p.get("dimensions")),
+                    normalise_capacity(p.get("capacity")),
                     p.get("material"),
                     int(p["units_per_case"]) if p.get("units_per_case") else None,
                     extract_image_key(p.get("image_url")),
                     extract_external_product_id(p.get("url")),
                 )
             )
+
             inserted += 1
 
     conn.commit()

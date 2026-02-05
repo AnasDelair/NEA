@@ -31,3 +31,8 @@ class Database:
         
     def get_connection(self):
         return self.pool.get_conn()
+    
+if __name__ == "__main__":
+    db = Database()
+    result = db.execute("SELECT 1")
+    print(result)
