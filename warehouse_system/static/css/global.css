@@ -92,3 +92,19 @@ input[type="submit"]:disabled {
     opacity: 0.5;
     cursor: not-allowed;
 }
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--surface)
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary)
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--highlight)
+}

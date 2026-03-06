@@ -1,0 +1,146 @@
+.inventory-layout {
+    display: flex;
+    height: 100%;
+}
+
+.inventory-tabs {
+    width: 15rem;
+
+    background-color: transparent;
+    border-right: none;
+    border-radius: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    margin-top: 3rem;
+    padding: 1.5rem 0 0 0;
+    margin-left: 0;
+    margin-bottom: 0;
+}
+
+.inventory-tabs .tab {
+    width: 100%;
+    height: 100%;
+    padding: 1rem 1.25rem;
+
+    background-color: var(--surface);
+
+    border: 1px solid var(--secondary);
+    border-radius: 0;
+    margin: 0;
+
+    text-align: center;
+    cursor: pointer;
+    font-family: inherit;
+    color: var(--text);
+}
+
+.inventory-tabs .tab:hover {
+    border: 1px solid var(--highlight);
+    background-color: var(--secondary);
+    box-shadow: inset 0.5rem 0 0 0 var(--primary);
+}
+
+.inventory-tabs .tab.active {
+    background-color: var(--primary);
+    box-shadow: inset 0.5rem 0 0 0 var(--secondary);
+    color: var(--highlight);
+    border: 1px solid var(--highlight);
+    font-weight: bold;
+}
+
+/* Main content */
+.inventory-content {
+    flex: 1;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Toolbar */
+.inventory-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.inventory-toolbar input[type="text"] {
+    width: 280px;
+}
+
+.toolbar-actions {
+    display: flex;
+    gap: 0.5rem;
+    align-items: flex-start;
+}
+
+.primary-action {
+    background-color: var(--primary);
+    color: var(--highlight);
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    border: 1px solid var(--secondary);
+}
+
+.primary-action:hover {
+    background-color: var(--secondary);
+    color: var(--text);
+}
+
+.secondary-action {
+    background-color: var(--surface);
+    border: 1px solid var(--secondary);
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+}
+
+.secondary-action:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Table */
+.table-wrapper {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.inventory-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.inventory-table th,
+.inventory-table td {
+    padding: 0.75rem;
+    border-bottom: 1px solid var(--secondary);
+    text-align: left;
+}
+
+.inventory-table thead {
+    background-color: var(--surface);
+    position: sticky;
+    top: 0;
+}
+
+.inventory-table tr.clickable:hover {
+    background-color: var(--highlight);
+    cursor: pointer;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .inventory-tabs {
+        width: 160px;
+    }
+
+    .inventory-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}

@@ -1,0 +1,64 @@
+.product-page{
+    padding:2rem;
+}
+
+.product-top{
+    display:flex;
+    gap:3rem;
+}
+
+.product-image img{
+    width:260px;
+    border:1px solid var(--secondary);
+}
+
+.placeholder{
+    width:260px;
+    height:260px;
+    background:var(--surface);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.product-info{
+    flex:1;
+}
+
+.info-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:0.5rem 2rem;
+    margin-top:1rem;
+}
+
+.product-stock{
+    margin-top:2rem;
+}
+
+.stock-grid{
+    display:flex;
+    gap:2rem;
+}
+
+.stat{
+    background:var(--surface);
+    padding:1rem;
+    border:1px solid var(--secondary);
+}
+
+.product-financials{
+    margin-top:2rem;
+}
+
+.finance-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:1rem;
+}
+
+.product-actions{
+    margin-top:2rem;
+    display:flex;
+    gap:1rem;
+}

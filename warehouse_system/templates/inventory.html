@@ -1,7 +1,7 @@
 {% extends "dashboard-base.html" %}
 
 {% block title %}
-Inventory
+inventory
 {% endblock %}
 
 {% block own_css %}
@@ -11,7 +11,54 @@ Inventory
 {% endblock %}
 
 {% block dashboard_content %}
-<h1>Inventory</h1>
+<div class="inventory-layout">
+
+    <!-- Sidebar -->
+    <aside class="inventory-tabs">
+        <a href="{{ url_for('inventory.index', filter='all') }}" class="tab {% if filter=='all' %}active{% endif %}">All inventory</a>
+        <a href="{{ url_for('inventory.index', filter='low') }}" class="tab {% if filter=='low' %}active{% endif %}">Low Stock</a>
+        <a href="{{ url_for('inventory.index', filter='none') }}" class="tab {% if filter=='none' %}active{% endif %}">Out of Stock</a>
+    </aside>
+
+    <!-- Main content -->
+    <section class="inventory-content">
+
+        <div class="inventory-toolbar">
+            <input id="inventory-search" type="text" placeholder="Search inventory">
+        </div>
+
+        <div class="table-wrapper">
+
+            <!-- inventorys table -->
+            <table class="inventory-table" data-table="inventorys">
+                <thead>
+                    <tr>
+                        <th>Product #</th>
+                        <th>Stock #</th>
+                        <th>Description</th>
+                        <th>Capacity</th>
+                        <th>Total Stock</th>
+                        <th>Pallets</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product in inventory %}
+                    <tr class="clickable"
+                        onclick="window.location='/product/{{ product.product_id }}'">
+                        <td>{{ product.product_code }}</td>
+                        <td>{{ product.stock_code }}</td>
+                        <td>{{ product.description }}</td>
+                        <td>{{ product.capacity }}</td>
+                        <td>{{ product.total_stock }}</td>
+                        <td>{{ product.pallet_count }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+    </section>
+</div>
 {% endblock %}
 
 {% block own_js %}

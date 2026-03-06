@@ -8,6 +8,7 @@ from sitemap.analytics.routes import analytics_blueprint
 from sitemap.invoices.routes import invoices_blueprint
 from sitemap.inventory.routes import inventory_blueprint
 from sitemap.warehouse.routes import warehouse_blueprint
+from sitemap.product.routes import product_blueprint
 
 load_dotenv()
 
@@ -19,6 +20,7 @@ app.register_blueprint(analytics_blueprint)
 app.register_blueprint(invoices_blueprint)
 app.register_blueprint(inventory_blueprint)
 app.register_blueprint(warehouse_blueprint)
+app.register_blueprint(product_blueprint)
 
 @app.route("/")
 @login_required

@@ -1,0 +1,119 @@
+{% extends "dashboard-base.html" %}
+
+{% block title %}
+Product {{ product.product_code }}
+{% endblock %}
+
+{% block own_css %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/product.css') }}">
+{% endblock %}
+
+{% block dashboard_content %}
+
+<div class="page-nav">
+    <a href="{{ url_for('inventory.index') }}" class="back-link">
+        ← Back to Inventory
+    </a>
+</div>
+
+<div class="product-page">
+
+    <div class="product-top">
+
+        <div class="product-image">
+            {% if product.image_url %}
+            <img src="{{ product.image_url }}">
+            {% else %}
+            <div class="placeholder">No image</div>
+            {% endif %}
+        </div>
+
+        <div class="product-info">
+
+            <h2>{{ product.description }}</h2>
+
+            <div class="info-grid">
+
+                <div><strong>Product ID</strong> {{ product.product_id }}</div>
+                <div><strong>Product Code</strong> {{ product.product_code }}</div>
+                <div><strong>Stock Code</strong> {{ product.stock_code }}</div>
+                <div><strong>Capacity</strong> {{ product.capacity }}</div>
+
+                <div><strong>Dimensions</strong> {{ product.dimensions }}</div>
+                <div><strong>Material</strong> {{ product.material }}</div>
+                <div><strong>Units per Case</strong> {{ product.units_per_case }}</div>
+                <div><strong>External ID</strong> {{ product.external_product_id }}</div>
+
+                <div><strong>Cost / Unit</strong> £{{ product.cost_per_unit }}</div>
+                <div><strong>Price / Unit</strong> £{{ product.price_per_unit }}</div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="product-stock">
+
+        <h3>Stock Overview</h3>
+
+        <div class="stock-grid">
+
+            <div class="stat">
+                <span>Total Stock</span>
+                <strong>{{ product.total_stock }}</strong>
+            </div>
+
+            <div class="stat">
+                <span>Pallet Count</span>
+                <strong>{{ product.pallet_count }}</strong>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="product-financials">
+
+        <h3>Financials</h3>
+
+        <div class="finance-grid">
+
+            <div>
+                <span>Total Cost</span>
+                <strong>£{{ "%.2f"|format(total_cost) }}</strong>
+            </div>
+
+            <div>
+                <span>Total Value</span>
+                <strong>£{{ "%.2f"|format(total_value) }}</strong>
+            </div>
+
+            <div>
+                <span>Profit</span>
+                <strong>£{{ "%.2f"|format(profit) }}</strong>
+            </div>
+
+            <div>
+                <span>Margin</span>
+                <strong>{{ "%.1f"|format(margin) }}%</strong>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="product-actions">
+        <button id="add-stock" class="primary-action">Add Stock</button>
+        <button id="remove-stock" class="secondary-action">Remove / Damage</button>
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block own_js %}
+{{ super() }}
+<script src="{{ url_for('static', filename='js/product.js') }}"></script>
+{% endblock %}

@@ -22,6 +22,16 @@ def extract_external_product_id(url):
     qs = parse_qs(parsed.query)
     return int(qs["product_id"][0]) if "product_id" in qs else None
 
+def normalise_units(value):
+    if not value:
+        return None
+
+    # keep only digits
+    digits = "".join(ch for ch in str(value) if ch.isdigit())
+
+    return int(digits) if digits else None
+
+
 with open("warehouse_system/storage/products.json", "r", encoding="utf-8") as f:
     products = json.load(f)
 
@@ -93,7 +103,7 @@ try:
                     normalise_dimensions(p.get("dimensions")),
                     normalise_capacity(p.get("capacity")),
                     p.get("material"),
-                    int(p["units_per_case"]) if p.get("units_per_case") else None,
+                    normalise_units(p.get("units_per_case")),
                     extract_image_key(p.get("image_url")),
                     extract_external_product_id(p.get("url")),
                 )
