@@ -11,12 +11,47 @@ Product {{ product.product_code }}
 
 {% block dashboard_content %}
 
-<div class="page-nav">
-    <a href="{{ url_for('inventory.index') }}" class="back-link">
-        ← Back to Inventory
-    </a>
+<!-- ── ADD STOCK MODAL ─────────────────────────────── -->
+<div id="add-stock-modal" class="modal hidden">
+    <div class="modal-content">
+        <h3 id="add-modal-title">Add Stock</h3>
+
+        <label>Total Stock:</label>
+        <input type="number" id="modal-total" min="1" value="0">
+
+        <label>Number of Pallets:</label>
+        <input type="number" id="modal-pallets" min="1" value="1">
+
+        <div id="pallet-list"></div>
+
+        <div class="modal-actions">
+            <button id="add-modal-submit" class="primary-action" disabled>Submit</button>
+            <button id="add-modal-cancel" class="secondary-action">Cancel</button>
+        </div>
+    </div>
 </div>
 
+<!-- ── REMOVE STOCK MODAL ─────────────────────────── -->
+<div id="remove-stock-modal" class="modal hidden">
+    <div class="modal-content modal-content--wide">
+        <h3>Remove / Damage Stock</h3>
+
+        <label>Total to Remove:</label>
+        <input type="number" id="remove-modal-total" min="1" value="0">
+        <span id="remove-sum-hint" class="sum-hint"></span>
+
+        <p id="remove-modal-loading" class="loading-text hidden">Loading pallets…</p>
+
+        <div id="remove-pallet-list" class="remove-pallet-list"></div>
+
+        <div class="modal-actions">
+            <button id="remove-modal-submit" class="danger-action" disabled>Confirm Removal</button>
+            <button id="remove-modal-cancel" class="secondary-action">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<!-- ── PAGE ───────────────────────────────────────── -->
 <div class="product-page">
 
     <div class="product-top">
@@ -34,20 +69,16 @@ Product {{ product.product_code }}
             <h2>{{ product.description }}</h2>
 
             <div class="info-grid">
-
                 <div><strong>Product ID</strong> {{ product.product_id }}</div>
                 <div><strong>Product Code</strong> {{ product.product_code }}</div>
                 <div><strong>Stock Code</strong> {{ product.stock_code }}</div>
                 <div><strong>Capacity</strong> {{ product.capacity }}</div>
-
                 <div><strong>Dimensions</strong> {{ product.dimensions }}</div>
                 <div><strong>Material</strong> {{ product.material }}</div>
                 <div><strong>Units per Case</strong> {{ product.units_per_case }}</div>
                 <div><strong>External ID</strong> {{ product.external_product_id }}</div>
-
                 <div><strong>Cost / Unit</strong> £{{ product.cost_per_unit }}</div>
                 <div><strong>Price / Unit</strong> £{{ product.price_per_unit }}</div>
-
             </div>
 
         </div>
@@ -59,17 +90,14 @@ Product {{ product.product_code }}
         <h3>Stock Overview</h3>
 
         <div class="stock-grid">
-
             <div class="stat">
                 <span>Total Stock</span>
                 <strong>{{ product.total_stock }}</strong>
             </div>
-
             <div class="stat">
                 <span>Pallet Count</span>
                 <strong>{{ product.pallet_count }}</strong>
             </div>
-
         </div>
 
     </div>
@@ -79,27 +107,22 @@ Product {{ product.product_code }}
         <h3>Financials</h3>
 
         <div class="finance-grid">
-
-            <div>
+            <div class="stat">
                 <span>Total Cost</span>
                 <strong>£{{ "%.2f"|format(total_cost) }}</strong>
             </div>
-
-            <div>
+            <div class="stat">
                 <span>Total Value</span>
                 <strong>£{{ "%.2f"|format(total_value) }}</strong>
             </div>
-
-            <div>
+            <div class="stat">
                 <span>Profit</span>
                 <strong>£{{ "%.2f"|format(profit) }}</strong>
             </div>
-
-            <div>
+            <div class="stat">
                 <span>Margin</span>
                 <strong>{{ "%.1f"|format(margin) }}%</strong>
             </div>
-
         </div>
 
     </div>
@@ -115,5 +138,8 @@ Product {{ product.product_code }}
 
 {% block own_js %}
 {{ super() }}
+<script>
+const productId = "{{ product.product_id }}";
+</script>
 <script src="{{ url_for('static', filename='js/product.js') }}"></script>
 {% endblock %}

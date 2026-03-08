@@ -3,7 +3,7 @@
     height: 100%;
 }
 
-.invoice-tabs {
+.invoices-tabs {
     width: 15rem;
 
     background-color: transparent;
@@ -19,30 +19,36 @@
     margin-bottom: 0;
 }
 
-.invoice-tabs .tab {
+.invoices-tabs .tab {
+    flex: 1;
+
+    display: grid;
+    place-items: center;
+
     width: 100%;
-    height: 100%;
     padding: 1rem 1.25rem;
 
     background-color: var(--surface);
-
     border: 1px solid var(--secondary);
-    border-radius: 0;
-    margin: 0;
 
     text-align: center;
     cursor: pointer;
     font-family: inherit;
     color: var(--text);
+    text-decoration: none;
+
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
-.invoice-tabs .tab:hover {
+.invoices-tabs .tab:hover {
     border: 1px solid var(--highlight);
     background-color: var(--secondary);
     box-shadow: inset 0.5rem 0 0 0 var(--primary);
 }
 
-.invoice-tabs .tab.active {
+.invoices-tabs .tab.active {
     background-color: var(--primary);
     box-shadow: inset 0.5rem 0 0 0 var(--secondary);
     color: var(--highlight);
@@ -51,7 +57,7 @@
 }
 
 /* Main content */
-.invoice-content {
+.invoices-content {
     flex: 1;
     padding: 1.5rem;
     display: flex;
@@ -59,13 +65,13 @@
 }
 
 /* Toolbar */
-.invoice-toolbar {
+.invoices-toolbar {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
 }
 
-.invoice-toolbar input[type="text"] {
+.invoices-toolbar input[type="text"] {
     width: 280px;
 }
 
@@ -75,72 +81,156 @@
     align-items: flex-start;
 }
 
-.primary-action {
-    background-color: var(--primary);
-    color: var(--highlight);
-    padding: 0.5rem 1rem;
-    text-decoration: none;
-    border: 1px solid var(--secondary);
-}
-
-.primary-action:hover {
-    background-color: var(--secondary);
-    color: var(--text);
-}
-
-.secondary-action {
-    background-color: var(--surface);
-    border: 1px solid var(--secondary);
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-}
-
-.secondary-action:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-}
-
 /* Table */
 .table-wrapper {
     flex: 1;
     overflow-y: auto;
 }
 
-.invoice-table {
+.invoices-table {
     width: 100%;
     border-collapse: collapse;
 }
 
-.invoice-table th,
-.invoice-table td {
+.invoices-table th,
+.invoices-table td {
     padding: 0.75rem;
     border-bottom: 1px solid var(--secondary);
     text-align: left;
 }
 
-.invoice-table thead {
+.invoices-table thead {
     background-color: var(--surface);
     position: sticky;
     top: 0;
 }
 
-.invoice-table tr.clickable:hover {
+.invoices-table tr.clickable:hover {
     background-color: var(--highlight);
     cursor: pointer;
 }
 
-.hidden {
-    display: none;
-}
-
 /* Responsive */
 @media (max-width: 900px) {
-    .invoice-tabs {
+    .invoices-tabs {
         width: 160px;
     }
 
-    .invoice-toolbar {
+    .invoices-toolbar {
         flex-direction: column;
         align-items: stretch;
     }
+}
+
+/* ── Invoice modal additions ── */
+
+.modal-content select {
+    width: 100%;
+    padding: 0.5rem;
+    background-color: var(--primary);
+    border: 1px solid var(--secondary);
+    color: var(--highlight);
+    font-family: inherit;
+    cursor: pointer;
+}
+
+.modal-content select:focus {
+    background-color: var(--secondary);
+    color: var(--text);
+    outline: none;
+}
+
+.invoice-item-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--bg);
+    border: 1px solid var(--secondary);
+    padding: 0.5rem 0.75rem;
+    margin-bottom: 0.4rem;
+}
+
+.invoice-item-row .item-stock-code {
+    width: 110px;
+    margin-bottom: 0;
+}
+
+.invoice-item-row .item-description {
+    flex: 1;
+    font-size: 0.85rem;
+    color: var(--text);
+    opacity: 0.8;
+}
+
+.invoice-item-row .item-qty {
+    width: 60px;
+    margin-bottom: 0;
+}
+
+.invoice-item-row .item-price {
+    width: 60px;
+    font-size: 0.85rem;
+    text-align: right;
+}
+
+.invoice-item-row .item-stock-hint {
+    font-size: 0.75rem;
+    opacity: 0.6;
+    white-space: nowrap;
+}
+
+.invoice-total-line {
+    text-align: right;
+    font-size: 1rem;
+    padding: 0.25rem 0;
+    border-top: 1px solid var(--secondary);
+}
+
+/* Status colours */
+.status-cell { font-weight: 600; }
+.status-draft    { color: var(--text); opacity: 0.6; }
+.status-open     { color: var(--primary); }
+.status-past_due { color: var(--highlight); background: var(--primary); padding: 2px 6px; }
+.status-paid     { color: var(--secondary); }
+
+/* ── Modal overlay ── */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+}
+
+.modal-content {
+    background-color: var(--surface);
+    padding: 2rem;
+    border-radius: 8px;
+    width: 500px;
+    max-width: 90%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.modal-content h3 {
+    margin: 0;
+}
+
+.modal-content input,
+.modal-content select {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 0;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
 }

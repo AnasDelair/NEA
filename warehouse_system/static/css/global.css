@@ -93,6 +93,26 @@ input[type="submit"]:disabled {
     cursor: not-allowed;
 }
 
+button {
+    background-color: var(--primary);
+    border: 1px solid var(--secondary);
+    color: var(--highlight);
+    padding: 8px 14px;
+    cursor: pointer;
+    text-align: center;
+}
+
+button:not(:disabled):hover {
+    background-color: var(--secondary);
+    border-color: var(--primary);
+    color: var(--text);
+}
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
 ::-webkit-scrollbar {
   width: 10px;
 }
@@ -107,4 +127,26 @@ input[type="submit"]:disabled {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--highlight)
+}
+
+tr:nth-child(even) {
+    background-color: var(--surface);
+}
+
+tr:nth-child(odd) {
+    background-color: var(--bg);
+}
+
+tr th {
+    background-color: var(--primary);
+    color: var(--highlight);
+    text-align: center;
+}
+
+th, td {
+  border-color: var(--secondary);
+}
+
+.hidden {
+    display: none !important;
 }

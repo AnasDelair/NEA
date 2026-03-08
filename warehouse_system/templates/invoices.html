@@ -6,39 +6,90 @@ invoices
 
 {% block own_css %}
 {{ super() }}
-
 <link rel="stylesheet" href="{{ url_for('static', filename='css/invoices.css') }}">
 {% endblock %}
 
 {% block dashboard_content %}
+
+<!-- ── CREATE INVOICE MODAL ───────────────────────────────────────────── -->
+<div id="create-invoice-modal" class="modal hidden">
+    <div class="modal-content modal-content--wide">
+        <h3>Create Invoice</h3>
+
+        <label>Customer:</label>
+        <select id="invoice-customer"></select>
+
+        <label>Due Date:</label>
+        <input type="date" id="invoice-due-date">
+
+        <label>Items:</label>
+        <div id="invoice-items"></div>
+        <button type="button" id="add-item-btn" class="secondary-action">+ Add Item</button>
+
+        <div class="invoice-total-line">
+            Total: <strong id="invoice-total-display">£0.00</strong>
+        </div>
+
+        <div class="modal-actions">
+            <button id="save-draft-btn" class="secondary-action" disabled>Save as Draft</button>
+            <button id="save-open-btn" class="primary-action" disabled>Save as Open</button>
+            <button id="create-invoice-cancel" class="secondary-action">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<!-- ── ADD CUSTOMER MODAL ─────────────────────────────────────────────── -->
+<div id="add-customer-modal" class="modal hidden">
+    <div class="modal-content">
+        <h3>Add Customer</h3>
+
+        <label>Name:</label>
+        <input type="text" id="customer-name" placeholder="Company or person name">
+
+        <label>Address:</label>
+        <input type="text" id="customer-address" placeholder="Address">
+
+        <label>Contact Number:</label>
+        <input type="text" id="customer-contact" placeholder="Phone number">
+
+        <div class="modal-actions">
+            <button id="save-customer-btn" class="primary-action">Save</button>
+            <button id="add-customer-cancel" class="secondary-action">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<!-- ── PAGE ──────────────────────────────────────────────────────────── -->
 <div class="invoices-layout">
 
-    <!-- Sidebar -->
-    <aside class="invoice-tabs">
-        <button class="tab active" data-tab="all">All invoices</button>
-        <button class="tab" data-tab="drafts">Drafts</button>
-        <button class="tab" data-tab="open">Open</button>
-        <button class="tab" data-tab="past-due">Past due</button>
-        <button class="tab" data-tab="paid">Paid</button>
-        <button class="tab" data-tab="customers">Customers</button>
+    <aside class="invoices-tabs">
+        <a href="{{ url_for('invoices.index', filter='all') }}"       class="tab {% if filter=='all' %}active{% endif %}">All Invoices</a>
+        <a href="{{ url_for('invoices.index', filter='drafts') }}"    class="tab {% if filter=='drafts' %}active{% endif %}">Drafts</a>
+        <a href="{{ url_for('invoices.index', filter='open') }}"      class="tab {% if filter=='open' %}active{% endif %}">Open</a>
+        <a href="{{ url_for('invoices.index', filter='past-due') }}"  class="tab {% if filter=='past-due' %}active{% endif %}">Past Due</a>
+        <a href="{{ url_for('invoices.index', filter='paid') }}"      class="tab {% if filter=='paid' %}active{% endif %}">Paid</a>
+        <a href="{{ url_for('invoices.index', filter='customers') }}" class="tab {% if filter=='customers' %}active{% endif %}">Customers</a>
     </aside>
 
-    <!-- Main content -->
-    <section class="invoice-content">
+    <section class="invoices-content">
 
-        <div class="invoice-toolbar">
-            <input type="text" placeholder="Search invoices or customers…">
-                <div class="toolbar-actions">
-                    <input type="submit" value="Mark as paid" disabled>
-                    <input type="submit" value="Delete" disabled>
-                    <input type="submit" value="Create invoice">
-                </div>
+        <div class="invoices-toolbar">
+            <input id="invoices-search" type="text" placeholder="Search invoices…">
+            <div class="toolbar-actions">
+                {% if filter == 'customers' %}
+                    <button id="add-customer-btn" class="primary-action">Add Customer</button>
+                {% else %}
+                    <input type="submit" id="mark-paid-btn" value="Mark as paid" disabled>
+                    <input type="submit" id="delete-btn" value="Delete" disabled>
+                    <button id="create-invoice-btn" class="primary-action">Create Invoice</button>
+                {% endif %}
+            </div>
         </div>
 
         <div class="table-wrapper">
 
-            <!-- Invoices table -->
-            <table class="invoice-table" data-table="invoices">
+            {% if filter != 'customers' %}
+            <table class="invoices-table" data-table="invoices">
                 <thead>
                     <tr>
                         <th><input type="checkbox" id="select-all"></th>
@@ -46,57 +97,65 @@ invoices
                         <th>Customer</th>
                         <th>Status</th>
                         <th>Amount</th>
-                        <th>Due date</th>
+                        <th>Due Date</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- placeholder rows -->
-                    <tr class="clickable">
-                        <td><input type="checkbox"></td>
-                        <td>#INV-001</td>
-                        <td>Acme Ltd</td>
-                        <td>Open</td>
-                        <td>£120.00</td>
-                        <td>12 Feb 2026</td>
+                    {% for invoice in invoices %}
+                    <tr class="clickable" data-invoice-id="{{ invoice.invoice_id }}">
+                        <td><input type="checkbox" class="row-check" onclick="event.stopPropagation()"></td>
+                        <td>#INV-{{ "%04d" | format(invoice.invoice_id) }}</td>
+                        <td>{{ invoice.customer_name }}</td>
+                        <td class="status-cell status-{{ invoice.status }}">{{ invoice.status | replace('_', ' ') | title }}</td>
+                        <td>£{{ "%.2f"|format(invoice.amount) }}</td>
+                        <td>{{ invoice.due_date }}</td>
                     </tr>
-                    <tr class="clickable">
-                        <td><input type="checkbox"></td>
-                        <td>#INV-002</td>
-                        <td>Beta Corp</td>
-                        <td>Paid</td>
-                        <td>£89.99</td>
-                        <td>01 Jan 2026</td>
+                    {% else %}
+                    <tr>
+                        <td colspan="6" style="text-align:center; opacity:0.6;">No invoices found.</td>
                     </tr>
+                    {% endfor %}
                 </tbody>
             </table>
 
-            <!-- Customers table -->
-            <table class="invoice-table hidden" data-table="customers">
+            {% else %}
+            <table class="invoices-table" data-table="customers">
                 <thead>
                     <tr>
                         <th>Customer</th>
-                        <th>Email</th>
-                        <th>Total invoices</th>
+                        <th>Type</th>
+                        <th>Address</th>
+                        <th>Contact</th>
+                        <th>Total Invoices</th>
                         <th>Outstanding</th>
                     </tr>
                 </thead>
                 <tbody>
+                    {% for customer in customers %}
                     <tr class="clickable">
-                        <td>Acme Ltd</td>
-                        <td>accounts@acme.co.uk</td>
-                        <td>12</td>
-                        <td>£240.00</td>
+                        <td>{{ customer.name }}</td>
+                        <td>{{ customer.customer_type | replace('_', ' ') | title }}</td>
+                        <td>{{ customer.address or '—' }}</td>
+                        <td>{{ customer.contact_number or '—' }}</td>
+                        <td>{{ customer.total_invoices }}</td>
+                        <td>£{{ "%.2f"|format(customer.outstanding) }}</td>
                     </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="6" style="text-align:center; opacity:0.6;">No customers found.</td>
+                    </tr>
+                    {% endfor %}
                 </tbody>
             </table>
+            {% endif %}
 
         </div>
     </section>
 </div>
+
 {% endblock %}
 
 {% block own_js %}
 {{ super() }}
-
 <script src="{{ url_for('static', filename='js/invoices.js') }}"></script>
 {% endblock %}
